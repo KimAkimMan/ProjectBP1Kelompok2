@@ -23,7 +23,7 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
         TB_Penambahan.setModel(data);
         
         // Pastikan nama kolom sesuai dengan yang ada di tabel
-        String sql = "SELECT id barang, kategori barang, nama barang, jumlah stok, satuan, harga satuan FROM persediaan";
+        String sql = "SELECT id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan FROM persediaan";
         
         try {
             st = koneksi.con.createStatement();  
