@@ -1,21 +1,49 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package kelompok2.projectbp1;
 
-/**
- *
- * @author USER
- */
-public class FormInputBarangMasuk extends javax.swing.JFrame {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-    /**
-     * Creates new form input_barang
-     */
+public class FormInputBarangMasuk extends javax.swing.JFrame {
+    Statement st;
+    ResultSet rs;
+    koneksi koneksi;
+
     public FormInputBarangMasuk() {
+        koneksi = new koneksi();
         initComponents();
+        load_data();
     }
+
+    public void load_data() {
+        Object header[] = {"ID Barang", "Kategori", "Nama Barang", "Jumlah Stok", "Satuan", "Harga Satuan"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        TB_Penambahan.setModel(data);
+        
+        // Pastikan nama kolom sesuai dengan yang ada di tabel
+        String sql = "SELECT id barang, kategori barang, nama barang, jumlah stok, satuan, harga satuan FROM persediaan";
+        
+        try {
+            st = koneksi.con.createStatement();  
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String k1 = rs.getString(1);
+                String k2 = rs.getString(2);
+                String k3 = rs.getString(3);
+                String k4 = rs.getString(4);
+                String k5 = rs.getString(5);
+                String k6 = rs.getString(6);
+
+                String k[] = {k1, k2, k3, k4, k5, k6};
+                data.addRow(k);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -305,4 +333,8 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
     private javax.swing.JRadioButton makanan;
     private javax.swing.JRadioButton minuman;
     // End of variables declaration//GEN-END:variables
+
+    private Object koneksi() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
