@@ -9,7 +9,7 @@ public class koneksi {
         id = "projectkel2";
         pass = "kelompok2bp1";
         driver = "com.mysql.cj.jdbc.Driver";
-        url = "jdbc:mysql://192.168.190.191:3306/gudang";
+        url = "jdbc:mysql://localhost:3306/gudang";
 
         
         try {
