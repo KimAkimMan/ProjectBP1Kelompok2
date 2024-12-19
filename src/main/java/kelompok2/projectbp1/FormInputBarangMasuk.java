@@ -43,6 +43,43 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    public void clear() {
+        ID_Barang.setText("");
+        makanan.setSelected(false);
+        minuman.setSelected(false);
+        Nama_Barang.setText("");
+        Jumlah_Stok.setText("");
+        Satuan.setText("");
+        Harga_Satuan.setText("");
+    }
+    public void input_data() {
+        String kategori="";
+            if(minuman.isSelected()){
+                kategori= minuman.getText();
+                makanan.setSelected(false);
+            }else if(makanan.isSelected()){
+                kategori= makanan.getText();
+                minuman.setSelected(false);
+            }
+        try {
+            String sql = String.format(
+                "INSERT INTO persediaan (id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                ID_Barang.getText(),            // ID Barang
+                kategori,     // Kategori
+                Nama_Barang.getText(),         // Nama Barang
+                Jumlah_Stok.getText(),       // Jumlah Stok
+                Satuan.getText(),       // Satuan
+                Harga_Satuan.getText()         // Harga Satuan
+            );
+            st.execute(sql);
+            JOptionPane.showMessageDialog(null, "Data Barang Berhasil Di Input");
+            load_data(); // Refresh tabel setelah input data
+            clear();     // Bersihkan input setelah input data
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    }
+    }
+
 
 
     /**
@@ -207,6 +244,11 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
         );
 
         Tombol_Simpan.setText("SIMPAN");
+        Tombol_Simpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tombol_SimpanMouseClicked(evt);
+            }
+        });
 
         Tombol_Keluar.setText("KELUAR");
         Tombol_Keluar.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +311,12 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
     private void ID_BarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_BarangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_BarangActionPerformed
+
+    private void Tombol_SimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tombol_SimpanMouseClicked
+       input_data();
+       load_data();
+       clear();
+    }//GEN-LAST:event_Tombol_SimpanMouseClicked
 
     /**
      * @param args the command line arguments
