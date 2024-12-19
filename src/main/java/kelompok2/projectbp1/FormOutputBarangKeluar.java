@@ -4,18 +4,114 @@
  */
 package kelompok2.projectbp1;
 
+
+
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import kelompok2.projectbp1.koneksi;
 /**
  *
  * @author WINDOWS 11
  */
 public class FormOutputBarangKeluar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormOutputBarangKeluar
-     */
+  private Object JTable1;
+
+    Statement st;
+    ResultSet rs;
+    koneksi koneksi;
     public FormOutputBarangKeluar() {
         initComponents();
+         koneksi = new koneksi();
+        load_data();
     }
+    private void load_data() {
+    Object header[] = {"ID_BARANG", "KATEGORI_BARANG", "NAMA_BARANG", "JUMLAH_STOK", "SATUAN","HARGA_SATUAN"};
+    DefaultTableModel data = new DefaultTableModel(null, header);
+    jTable1.setModel(data);
+
+    String sql = "SELECT id barang, kategori barang, nama barang, jumlah stok,satuan,harga satuan FROM persediaan";
+
+    try {
+        st = koneksi.con.createStatement();
+        rs = st.executeQuery(sql);
+
+        while (rs.next()) {
+            String k1 = rs.getString("id barang");
+            String k2 = rs.getString("kategori barang");
+            String k3 = rs.getString("nama barang");
+            String k4 = rs.getString("jumlah stok");
+            String k5 = rs.getString("satuan");
+            String k6 = rs.getString("satuan harga");
+            
+
+
+            String k[] = {k1, k2, k3, k4, k5,k6};
+            data.addRow(k);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+}
+    public void input_data() {
+    try {
+       
+        String idBarang = jTextField1.getText();
+        String kategoriBarang = jRadioButton1.isSelected() ? "MAKANAN" : jRadioButton2.isSelected() ? "MINUMAN" : "";
+        String namaBarang = jTextField2.getText();
+        String jumlahStok = jTextField3.getText();
+        String satuan = jTextField4.getText();
+        String hargaSatuan = jTextField5.getText();
+
+    
+        if (idBarang.isEmpty() || kategoriBarang.isEmpty() || namaBarang.isEmpty() || 
+            jumlahStok.isEmpty() || satuan == null || hargaSatuan.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua data harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null, 
+            "Apakah Anda yakin ingin menyimpan data ini?", 
+            "Konfirmasi Penyimpanan", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+        
+            String sql = "INSERT INTO persediaan (id barang, kategori barang, nama barang, jumlah stok, satuan, harga satuan) VALUES ('"
+                + idBarang + "', '"
+                + kategoriBarang + "', '"
+                + namaBarang + "', '"
+                + jumlahStok + "', '"
+                + satuan + "', '"
+                + hargaSatuan + "')";
+
+            st = koneksi.con.createStatement();
+            st.executeUpdate(sql);
+
+       
+            load_data();
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
+            reset_form();
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void reset_form() {
+    jTextField1.setText("");  
+    jRadioButton1.setSelected(false);  
+    jRadioButton2.setSelected(false); 
+    jTextField2.setText("");  
+    jTextField3.setText(""); 
+    jTextField2.setText("");  
+    jTextField5.setText("");  
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,8 +265,18 @@ public class FormOutputBarangKeluar extends javax.swing.JFrame {
         );
 
         jButton1.setText("SIMPAN");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("KELUAR");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -224,6 +330,42 @@ public class FormOutputBarangKeluar extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        input_data();
+        reset_form();
+        load_data();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        try {
+        String idbarang = jTextField1.getText();
+
+        if (idbarang.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Masukkan ID BARANG yang akan dihapus!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null, 
+            "Apakah Anda yakin ingin menghapus data ini?", 
+            "Konfirmasi Penghapusan", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            String sql_delete = "DELETE FROM persediaan WHERE idbarang = '" + idbarang + "'";
+            st = koneksi.con.createStatement();
+            st.executeUpdate(sql_delete);
+            load_data();
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
+            reset_form();
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

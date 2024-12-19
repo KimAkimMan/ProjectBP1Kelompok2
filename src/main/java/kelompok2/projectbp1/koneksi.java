@@ -6,10 +6,10 @@ public class koneksi {
     Connection con;
     public koneksi() {
         String id, pass, driver, url;
-        id = "projectkel2";
-        pass = "kelompok2bp1";
+        id = "root";
+        pass = "";
         driver = "com.mysql.cj.jdbc.Driver";
-        url = "jdbc:mysql://192.168.190.191:3306/gudang";
+        url = "jdbc:mysql://localhost:3306/gudang";
 
         
         try {
