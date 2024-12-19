@@ -4,18 +4,82 @@
  */
 package kelompok2.projectbp1;
 
-/**
- *
- * @author USER
- */
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class DaftarPersediaan extends javax.swing.JFrame {
-
-    /**
-     * Creates new form DaftarPersediaan
-     */
+    Statement st;
+    ResultSet rs;
+    koneksi koneksi;
     public DaftarPersediaan() {
+        koneksi = new koneksi();
         initComponents();
+        load_data();
     }
+    public void load_data() {
+        Object header[] = {"ID Barang", "Kategori", "Nama Barang", "Jumlah Stok", "Satuan", "Harga Satuan"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        TB_Daftar_Persediaan.setModel(data);
+        
+        // Pastikan nama kolom sesuai dengan yang ada di tabel
+        String sql = "SELECT id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan FROM persediaan";
+        
+        try {
+            st = koneksi.con.createStatement();  
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String k1 = rs.getString(1);
+                String k2 = rs.getString(2);
+                String k3 = rs.getString(3);
+                String k4 = rs.getString(4);
+                String k5 = rs.getString(5);
+                String k6 = rs.getString(6);
+
+                String k[] = {k1, k2, k3, k4, k5, k6};
+                data.addRow(k);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    public void clear() {
+        ID_Barang.setText("");
+        makanan.setSelected(false);
+        minuman.setSelected(false);
+        Nama_Barang.setText("");
+        Jumlah_Stok.setText("");
+        Satuan.setText("");
+        Harga_Satuan.setText("");
+    }
+    public void edit_data() {
+        String kategori="";
+            if(minuman.isSelected()){
+                kategori= minuman.getText();
+                makanan.setSelected(false);
+            }else if(makanan.isSelected()){
+                kategori= makanan.getText();
+                minuman.setSelected(false);
+            }
+        try {
+            String sql_edit = String.format(
+            "UPDATE persediaan SET kategori_barang = '%s', nama_barang = '%s', jumlah_stok = '%s', satuan = '%s', harga_satuan = '%s'  WHERE id_barang = '%s'",
+                kategori,     // Kategori
+                Nama_Barang.getText(),         // Nama Barang
+                Jumlah_Stok.getText(),       // Jumlah Stok
+                Satuan.getText(),       // Satuan
+                Harga_Satuan.getText(),         // Harga Satuan
+                ID_Barang.getText()           // ID Barang
+            );
+            st.execute(sql_edit);
+            JOptionPane.showMessageDialog(null, "Data Barang Berhasil Di Input");
+            load_data(); // Refresh tabel setelah input data
+            clear();     // Bersihkan input setelah input data
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,7 +91,7 @@ public class DaftarPersediaan extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TB_Daftar_Persediaan = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -51,7 +115,7 @@ public class DaftarPersediaan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TB_Daftar_Persediaan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -62,13 +126,18 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TB_Daftar_Persediaan);
 
         jLabel1.setText("Cari Berdasarkan ID:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
             }
         });
 
@@ -97,6 +166,11 @@ public class DaftarPersediaan extends javax.swing.JFrame {
         jLabel8.setText("Harga Satuan (Rp)");
 
         jButton1.setText("EDIT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("SIMPAN");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -117,10 +191,6 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(38, 38, 38)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton1)
@@ -146,8 +216,12 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(minuman))
                                 .addComponent(Nama_Barang, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Jumlah_Stok, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                                .addComponent(Jumlah_Stok, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(31, 31, 31)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -222,6 +296,40 @@ public class DaftarPersediaan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        Object header[] = {"ID Barang", "Kategori", "Nama Barang", "Jumlah Stok", "Satuan", "Harga Satuan"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        TB_Daftar_Persediaan.setModel(data);
+        String cariID = jTextField1.getText();
+
+        try {
+            st = koneksi.con.createStatement();
+            String query = "SELECT * FROM persediaan WHERE id_barang LIKE '%" + cariID + "%' ORDER BY id_barang ASC";
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                data.addRow(new Object[]{
+                    rs.getString("id_barang"),
+                    rs.getString("kategori_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getString("jumlah_stok"),
+                    rs.getString("satuan"),
+                    rs.getString("harga_satuan")
+                });
+            }
+            TB_Daftar_Persediaan.setModel(data);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        edit_data();
+        clear();
+        load_data();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,6 +371,7 @@ public class DaftarPersediaan extends javax.swing.JFrame {
     private javax.swing.JTextField Jumlah_Stok;
     private javax.swing.JTextField Nama_Barang;
     private javax.swing.JTextField Satuan;
+    private javax.swing.JTable TB_Daftar_Persediaan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -276,7 +385,6 @@ public class DaftarPersediaan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton makanan;
     private javax.swing.JRadioButton minuman;
