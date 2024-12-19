@@ -11,8 +11,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
-import kelompok2.projectbp1.koneksi;
-
 
 public class jasper {
 
@@ -24,7 +22,6 @@ public class jasper {
 
     public void generateReport(List<Map<String, ?>> data) {
         try {
-
             JasperDesign jasperDesign = new JasperDesign();
             jasperDesign.setName("DynamicReport");
             jasperDesign.setPageWidth(595);
@@ -36,14 +33,16 @@ public class jasper {
             jasperDesign.setBottomMargin(20);
             jasperDesign.setWhenNoDataType(WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL);
 
-            String[] fields = { "id barang", "kategori barang", "nama barang", "jumlah stok", "satuan", "harga satuan" };
+            // Fields yang digunakan dalam laporan
+            String[] fields = {"id_barang", "kategori_barang", "nama_barang", "jumlah_stok", "satuan", "harga_satuan"};
             for (String field : fields) {
                 JRDesignField jrField = new JRDesignField();
                 jrField.setName(field);
-                jrField.setValueClass(String.class);
+                jrField.setValueClass(String.class);  // Semua field di sini diatur sebagai String
                 jasperDesign.addField(jrField);
             }
 
+            // Judul Laporan
             JRDesignBand titleBand = new JRDesignBand();
             titleBand.setHeight(50);
             JRDesignStaticText titleText = new JRDesignStaticText();
@@ -57,11 +56,12 @@ public class jasper {
             titleBand.addElement(titleText);
             jasperDesign.setTitle(titleBand);
 
+            // Header Kolom
             JRDesignBand headerBand = new JRDesignBand();
             headerBand.setHeight(30);
             int x = 0;
 
-            String[] headers = { "ID BARANG", "KATEGORI BARANG", "NAMA BARANG", "JUMLAH STOK", "SATUAN", "HARGA SATUAN" };
+            String[] headers = {"id_barang", "kategori_barang", "nama_barang", "jumlah_stok", "satuan", "harga_satuan"};
             for (int i = 0; i < headers.length; i++) {
                 JRDesignStaticText headerText = new JRDesignStaticText();
                 headerText.setText(headers[i]);
@@ -74,14 +74,13 @@ public class jasper {
                 headerText.setBackcolor(Color.RED);
                 headerText.setForecolor(Color.WHITE);
                 headerText.setMode(ModeEnum.OPAQUE);
-
                 headerText.getLineBox().getPen().setLineWidth(0.5f);
-
                 headerBand.addElement(headerText);
-                x += 90; 
+                x += 90;
             }
             jasperDesign.setColumnHeader(headerBand);
 
+            // Detail Baris
             JRDesignBand detailBand = new JRDesignBand();
             detailBand.setHeight(20);
             x = 0;
@@ -94,20 +93,21 @@ public class jasper {
                 textField.setHeight(20);
                 textField.setHorizontalTextAlign(HorizontalTextAlignEnum.CENTER);
                 textField.setVerticalTextAlign(VerticalTextAlignEnum.MIDDLE);
-                textField.setStretchType(StretchTypeEnum.NO_STRETCH); 
-
+                textField.setStretchType(StretchTypeEnum.NO_STRETCH);
                 textField.setExpression(new JRDesignExpression("$F{" + field + "}"));
                 textField.getLineBox().getPen().setLineWidth(0.5f);
-
                 detailBand.addElement(textField);
-                x += 90; 
+                x += 90;
             }
             ((JRDesignSection) jasperDesign.getDetailSection()).addBand(detailBand);
 
+            // Kompilasi laporan dan mengisi data
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
             Map<String, Object> parameters = new HashMap<>();
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Tampilkan laporan
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (Exception e) {
@@ -123,22 +123,21 @@ public class jasper {
 
     private List<Map<String, ?>> fetchData() {
         List<Map<String, ?>> data = new ArrayList<>();
-        String sql = "SELECT id barang, kategori barang, nama barang, jumlah stok, satuan, harga satuan FROM persediaan";
+        String sql = "SELECT id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan FROM persediaan";
 
-        try (Connection con = koneksi.con;
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        try (Connection con = koneksi.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
                 Map<String, Object> row = new HashMap<>();
-                row.put("id barang", rs.getString("id barang"));
-                row.put("kategori barang", rs.getString("kategori barang"));
-                row.put("nama barang", rs.getString("nama barang"));
-                row.put("jumlah stok", rs.getString("jumlah stok"));
+                row.put("id_barang", rs.getString("id_barang"));
+                row.put("kategori_barang", rs.getString("kategori_barang"));
+                row.put("nama_barang", rs.getString("nama_barang"));
+                row.put("jumlah_stok", rs.getString("jumlah_stok"));
                 row.put("satuan", rs.getString("satuan"));
-                row.put(" harga satuan", rs.getString(" harga satuan"));
+                row.put("harga_satuan", rs.getString("harga_satuan"));
                 data.add(row);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

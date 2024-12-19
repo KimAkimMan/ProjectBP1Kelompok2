@@ -6,6 +6,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
 public class FormInputBarangMasuk extends javax.swing.JFrame {
     Statement st;
     ResultSet rs;

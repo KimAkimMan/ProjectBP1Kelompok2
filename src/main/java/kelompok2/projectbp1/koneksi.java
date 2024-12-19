@@ -1,23 +1,40 @@
 package kelompok2.projectbp1;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+/**
+ *
+ * @author Windows 10
+ */
 public class koneksi {
-    Connection con;
-    public koneksi() {
-        String id, pass, driver, url;
-        id = "root";
-        pass = "";
-        driver = "com.mysql.cj.jdbc.Driver";
-        url = "jdbc:mysql://localhost:3306/gudang";
+    public Connection con;
 
-        
+    public koneksi() {
+        String id = "root";
+        String pass = "";
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/gudang";
+
         try {
-            // Memuat driver JDBC
             Class.forName(driver);
-            con = DriverManager.getConnection(url, id, pass);            
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getLocalizedMessage());
+            con = DriverManager.getConnection(url, id, pass);
+            JOptionPane.showMessageDialog(null, "Koneksi Berhasil");
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Koneksi Gagal: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        new koneksi();
+    }
+
+    public Connection getkoneksi() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

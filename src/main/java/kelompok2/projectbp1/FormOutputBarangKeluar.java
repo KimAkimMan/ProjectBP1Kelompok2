@@ -34,19 +34,19 @@ public class FormOutputBarangKeluar extends javax.swing.JFrame {
     DefaultTableModel data = new DefaultTableModel(null, header);
     jTable1.setModel(data);
 
-    String sql = "SELECT id barang, kategori barang, nama barang, jumlah stok,satuan,harga satuan FROM persediaan";
+    String sql = "SELECT id_barang, kategori_barang, nama_barang, jumlah_stok,satuan,harga_satuan FROM persediaan";
 
     try {
         st = koneksi.con.createStatement();
         rs = st.executeQuery(sql);
 
         while (rs.next()) {
-            String k1 = rs.getString("id barang");
-            String k2 = rs.getString("kategori barang");
-            String k3 = rs.getString("nama barang");
-            String k4 = rs.getString("jumlah stok");
+            String k1 = rs.getString("id_barang");
+            String k2 = rs.getString("kategori_barang");
+            String k3 = rs.getString("nama_barang");
+            String k4 = rs.getString("jumlah_stok");
             String k5 = rs.getString("satuan");
-            String k6 = rs.getString("satuan harga");
+            String k6 = rs.getString("harga_satuan");
             
 
 
@@ -81,7 +81,7 @@ public class FormOutputBarangKeluar extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
         
-            String sql = "INSERT INTO persediaan (id barang, kategori barang, nama barang, jumlah stok, satuan, harga satuan) VALUES ('"
+            String sql = "INSERT INTO persediaan (id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan) VALUES ('"
                 + idBarang + "', '"
                 + kategoriBarang + "', '"
                 + namaBarang + "', '"
@@ -341,10 +341,10 @@ private void reset_form() {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         try {
-        String idbarang = jTextField1.getText();
+        String id_barang = jTextField1.getText();
 
-        if (idbarang.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Masukkan ID BARANG yang akan dihapus!", "Error", JOptionPane.ERROR_MESSAGE);
+        if (id_barang.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Masukkan ID_BARANG yang akan dihapus!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -354,7 +354,7 @@ private void reset_form() {
             JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            String sql_delete = "DELETE FROM persediaan WHERE idbarang = '" + idbarang + "'";
+            String sql_delete = "DELETE FROM persediaan WHERE id_barang = '" + id_barang + "'";
             st = koneksi.con.createStatement();
             st.executeUpdate(sql_delete);
             load_data();
