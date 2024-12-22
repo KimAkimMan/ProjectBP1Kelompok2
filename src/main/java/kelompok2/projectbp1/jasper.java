@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
+import kelompok2.projectbp1.koneksi;
 
 public class jasper {
 
@@ -22,6 +23,8 @@ public class jasper {
 
     public void generateReport(List<Map<String, ?>> data) {
         try {
+
+            // Membuat desain laporan
             JasperDesign jasperDesign = new JasperDesign();
             jasperDesign.setName("DynamicReport");
             jasperDesign.setPageWidth(595);
@@ -33,16 +36,16 @@ public class jasper {
             jasperDesign.setBottomMargin(20);
             jasperDesign.setWhenNoDataType(WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL);
 
-            // Fields yang digunakan dalam laporan
-            String[] fields = {"id_barang", "kategori_barang", "nama_barang", "jumlah_stok", "satuan", "harga_satuan"};
+            // Fields yang digunakan
+            String[] fields = { "id_barang", "kategori_barang", "nama_barang", "jumlah_stok", "satuan", "harga_satuan" };
             for (String field : fields) {
                 JRDesignField jrField = new JRDesignField();
                 jrField.setName(field);
-                jrField.setValueClass(String.class);  // Semua field di sini diatur sebagai String
+                jrField.setValueClass(String.class);
                 jasperDesign.addField(jrField);
             }
 
-            // Judul Laporan
+            // Judul laporan
             JRDesignBand titleBand = new JRDesignBand();
             titleBand.setHeight(50);
             JRDesignStaticText titleText = new JRDesignStaticText();
@@ -56,15 +59,15 @@ public class jasper {
             titleBand.addElement(titleText);
             jasperDesign.setTitle(titleBand);
 
-            // Header Kolom
+            // Header kolom
             JRDesignBand headerBand = new JRDesignBand();
             headerBand.setHeight(30);
             int x = 0;
 
-            String[] headers = {"id_barang", "kategori_barang", "nama_barang", "jumlah_stok", "satuan", "harga_satuan"};
-            for (int i = 0; i < headers.length; i++) {
+            String[] headers = { "ID Barang", "Kategori Barang", "Nama Barang", "Jumlah Stok", "Satuan", "Harga Satuan" };
+            for (String header : headers) {
                 JRDesignStaticText headerText = new JRDesignStaticText();
-                headerText.setText(headers[i]);
+                headerText.setText(header);
                 headerText.setX(x);
                 headerText.setY(0);
                 headerText.setWidth(90);
@@ -80,7 +83,7 @@ public class jasper {
             }
             jasperDesign.setColumnHeader(headerBand);
 
-            // Detail Baris
+            // Detail baris
             JRDesignBand detailBand = new JRDesignBand();
             detailBand.setHeight(20);
             x = 0;
@@ -93,7 +96,6 @@ public class jasper {
                 textField.setHeight(20);
                 textField.setHorizontalTextAlign(HorizontalTextAlignEnum.CENTER);
                 textField.setVerticalTextAlign(VerticalTextAlignEnum.MIDDLE);
-                textField.setStretchType(StretchTypeEnum.NO_STRETCH);
                 textField.setExpression(new JRDesignExpression("$F{" + field + "}"));
                 textField.getLineBox().getPen().setLineWidth(0.5f);
                 detailBand.addElement(textField);
@@ -125,7 +127,9 @@ public class jasper {
         List<Map<String, ?>> data = new ArrayList<>();
         String sql = "SELECT id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan FROM persediaan";
 
-        try (Connection con = koneksi.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        try (Connection con = koneksi.con;
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
                 Map<String, Object> row = new HashMap<>();
@@ -137,7 +141,6 @@ public class jasper {
                 row.put("harga_satuan", rs.getString("harga_satuan"));
                 data.add(row);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
