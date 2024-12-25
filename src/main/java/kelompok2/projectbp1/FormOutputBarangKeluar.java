@@ -1,11 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package kelompok2.projectbp1;
-
-
-
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,10 +6,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import kelompok2.projectbp1.koneksi;
-/**
- *
- * @author WINDOWS 11
- */
+
 public class FormOutputBarangKeluar extends javax.swing.JFrame {
 
   private Object JTable1;
@@ -60,12 +50,12 @@ public class FormOutputBarangKeluar extends javax.swing.JFrame {
     public void input_data() {
     try {
        
-        String idBarang = jTextField1.getText();
-        String kategoriBarang = jRadioButton1.isSelected() ? "MAKANAN" : jRadioButton2.isSelected() ? "MINUMAN" : "";
-        String namaBarang = jTextField2.getText();
-        String jumlahStok = jTextField3.getText();
-        String satuan = jTextField4.getText();
-        String hargaSatuan = jTextField5.getText();
+        String idBarang = ID_Barang.getText();
+        String kategoriBarang = makanan.isSelected() ? "MAKANAN" : minuman.isSelected() ? "MINUMAN" : "";
+        String namaBarang = Nama_Barang.getText();
+        String jumlahStok = Jumlah_Stok.getText();
+        String satuan = Satuan.getText();
+        String hargaSatuan = Harga_Satuan.getText();
 
     
         if (idBarang.isEmpty() || kategoriBarang.isEmpty() || namaBarang.isEmpty() || 
@@ -103,13 +93,13 @@ public class FormOutputBarangKeluar extends javax.swing.JFrame {
 }
 
 private void reset_form() {
-    jTextField1.setText("");  
-    jRadioButton1.setSelected(false);  
-    jRadioButton2.setSelected(false); 
-    jTextField2.setText("");  
-    jTextField3.setText(""); 
-    jTextField2.setText("");  
-    jTextField5.setText("");  
+    ID_Barang.setText("");  
+    makanan.setSelected(false);  
+    minuman.setSelected(false); 
+    Nama_Barang.setText("");  
+    Jumlah_Stok.setText(""); 
+    Nama_Barang.setText("");  
+    Harga_Satuan.setText("");  
 }
 
 
@@ -133,18 +123,18 @@ private void reset_form() {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        Harga_Satuan = new javax.swing.JTextField();
+        Satuan = new javax.swing.JTextField();
+        Jumlah_Stok = new javax.swing.JTextField();
+        Nama_Barang = new javax.swing.JTextField();
+        ID_Barang = new javax.swing.JTextField();
+        makanan = new javax.swing.JRadioButton();
+        minuman = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        log = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Tombol_Keluar_Barang = new javax.swing.JButton();
+        Tombol_Exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,19 +167,19 @@ private void reset_form() {
 
         jLabel8.setText("HARGA SATUAN");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        ID_Barang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                ID_BarangActionPerformed(evt);
             }
         });
 
-        jRadioButton1.setText("MAKANAN");
+        makanan.setText("MAKANAN");
 
-        jRadioButton2.setText("MINUMAN");
+        minuman.setText("MINUMAN");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        log.setColumns(20);
+        log.setRows(5);
+        jScrollPane2.setViewportView(log);
 
         jLabel9.setText("Pesan");
 
@@ -210,21 +200,21 @@ private void reset_form() {
                             .addComponent(jLabel8))
                         .addGap(36, 36, 36)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
+                            .addComponent(Harga_Satuan)
+                            .addComponent(Satuan)
+                            .addComponent(Jumlah_Stok)
+                            .addComponent(Nama_Barang)
+                            .addComponent(ID_Barang)
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(makanan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton2))))
+                                .addComponent(minuman))))
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(30, 30, 30))
+                .addGap(22, 22, 22))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,48 +228,48 @@ private void reset_form() {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ID_Barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(makanan)
+                            .addComponent(minuman))
                         .addGap(6, 6, 6)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Nama_Barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Jumlah_Stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Satuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Harga_Satuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jButton1.setText("KELUARKAN BARANG");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tombol_Keluar_Barang.setText("KELUARKAN BARANG");
+        Tombol_Keluar_Barang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                Tombol_Keluar_BarangMouseClicked(evt);
             }
         });
 
-        jButton2.setText("EXIT");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tombol_Exit.setText("EXIT");
+        Tombol_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                Tombol_ExitMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Tombol_Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                Tombol_ExitActionPerformed(evt);
             }
         });
 
@@ -296,13 +286,13 @@ private void reset_form() {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(205, 205, 205)
-                        .addComponent(jButton1)
+                        .addComponent(Tombol_Keluar_Barang)
                         .addGap(235, 235, 235)
-                        .addComponent(jButton2))
+                        .addComponent(Tombol_Exit))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(340, 340, 340)
                         .addComponent(jLabel1)))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,26 +305,26 @@ private void reset_form() {
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(Tombol_Keluar_Barang)
+                    .addComponent(Tombol_Exit))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void ID_BarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_BarangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_ID_BarangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void Tombol_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tombol_ExitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_Tombol_ExitActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void Tombol_Keluar_BarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tombol_Keluar_BarangMouseClicked
         // TODO add your handling code here:
         try {
-        String id_barang = jTextField1.getText();
+        String id_barang = ID_Barang.getText();
 
         if (id_barang.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Masukkan ID_BARANG yang akan dihapus!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -351,17 +341,24 @@ private void reset_form() {
             st = koneksi.con.createStatement();
             st.executeUpdate(sql_delete);
             load_data();
+            // Untuk Menampilkan Log pesan
+            String log_pesan = log.getText();
+            String kategori = minuman.isSelected() ? minuman.getText() : makanan.getText();
+            String pesan = String.format("-- Data %s, ID: %s, berhasil dikeluarkan --\n", 
+               kategori,ID_Barang.getText());
+            log_pesan += pesan;
+            log.setText(log_pesan);
             JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
             reset_form();
         }
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_Tombol_Keluar_BarangMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void Tombol_ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tombol_ExitMouseClicked
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_Tombol_ExitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -400,8 +397,13 @@ private void reset_form() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField Harga_Satuan;
+    private javax.swing.JTextField ID_Barang;
+    private javax.swing.JTextField Jumlah_Stok;
+    private javax.swing.JTextField Nama_Barang;
+    private javax.swing.JTextField Satuan;
+    private javax.swing.JButton Tombol_Exit;
+    private javax.swing.JButton Tombol_Keluar_Barang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -411,17 +413,12 @@ private void reset_form() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextArea log;
+    private javax.swing.JRadioButton makanan;
+    private javax.swing.JRadioButton minuman;
     private java.awt.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }

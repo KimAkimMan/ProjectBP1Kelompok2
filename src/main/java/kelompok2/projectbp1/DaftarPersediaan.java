@@ -95,7 +95,7 @@ public class DaftarPersediaan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TB_Daftar_Persediaan = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        find_id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         ID_Barang = new javax.swing.JTextField();
@@ -110,9 +110,9 @@ public class DaftarPersediaan extends javax.swing.JFrame {
         Satuan = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         Harga_Satuan = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Tombol_Edit = new javax.swing.JButton();
+        laporan_jasper = new javax.swing.JButton();
+        tombol_exit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,14 +132,14 @@ public class DaftarPersediaan extends javax.swing.JFrame {
 
         jLabel1.setText("Cari Berdasarkan ID:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        find_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                find_idActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        find_id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                find_idKeyReleased(evt);
             }
         });
 
@@ -167,24 +167,24 @@ public class DaftarPersediaan extends javax.swing.JFrame {
 
         jLabel8.setText("Harga Satuan (Rp)");
 
-        jButton1.setText("EDIT");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Tombol_Edit.setText("EDIT");
+        Tombol_Edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Tombol_EditActionPerformed(evt);
             }
         });
 
-        jButton2.setText("LAPORAN");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        laporan_jasper.setText("LAPORAN");
+        laporan_jasper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                laporan_jasperActionPerformed(evt);
             }
         });
 
-        jButton3.setText("EXIT");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        tombol_exit.setText("EXIT");
+        tombol_exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                tombol_exitActionPerformed(evt);
             }
         });
 
@@ -200,11 +200,11 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
+                            .addComponent(Tombol_Edit)
                             .addGap(47, 47, 47)
-                            .addComponent(jButton2)
+                            .addComponent(laporan_jasper)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3))
+                            .addComponent(tombol_exit))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel5)
@@ -227,7 +227,7 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(31, 31, 31)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(find_id, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
@@ -249,7 +249,7 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(find_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(77, 77, 77)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,34 +282,34 @@ public class DaftarPersediaan extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1)
-                                .addComponent(jButton2))
-                            .addComponent(jButton3))))
+                                .addComponent(Tombol_Edit)
+                                .addComponent(laporan_jasper))
+                            .addComponent(tombol_exit))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void find_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_find_idActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_find_idActionPerformed
 
     private void ID_BarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_BarangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_BarangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void laporan_jasperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporan_jasperActionPerformed
         jasper reportGenerator = new jasper();
         List<Map<String, ?>> data = reportGenerator.fetchData();
         reportGenerator.generateReport(data);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_laporan_jasperActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void find_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_find_idKeyReleased
         Object header[] = {"ID Barang", "Kategori", "Nama Barang", "Jumlah Stok", "Satuan", "Harga Satuan"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         TB_Daftar_Persediaan.setModel(data);
-        String cariID = jTextField1.getText();
+        String cariID = find_id.getText();
 
         try {
             st = koneksi.con.createStatement();
@@ -331,17 +331,17 @@ public class DaftarPersediaan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
     }
 
-    }//GEN-LAST:event_jTextField1KeyReleased
+    }//GEN-LAST:event_find_idKeyReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Tombol_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tombol_EditActionPerformed
         edit_data();
         clear();
         load_data();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Tombol_EditActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void tombol_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_exitActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_tombol_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,9 +385,8 @@ public class DaftarPersediaan extends javax.swing.JFrame {
     private javax.swing.JTextField Nama_Barang;
     private javax.swing.JTextField Satuan;
     private javax.swing.JTable TB_Daftar_Persediaan;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton Tombol_Edit;
+    private javax.swing.JTextField find_id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -398,8 +397,9 @@ public class DaftarPersediaan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton laporan_jasper;
     private javax.swing.JRadioButton makanan;
     private javax.swing.JRadioButton minuman;
+    private javax.swing.JButton tombol_exit;
     // End of variables declaration//GEN-END:variables
 }
