@@ -7,6 +7,8 @@ package kelompok2.projectbp1;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class DaftarPersediaan extends javax.swing.JFrame {
@@ -172,14 +174,19 @@ public class DaftarPersediaan extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("SIMPAN");
+        jButton2.setText("LAPORAN");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("HAPUS");
+        jButton3.setText("EXIT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("DAFTAR PERSEDIAAN");
 
@@ -293,7 +300,9 @@ public class DaftarPersediaan extends javax.swing.JFrame {
     }//GEN-LAST:event_ID_BarangActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        jasper reportGenerator = new jasper();
+        List<Map<String, ?>> data = reportGenerator.fetchData();
+        reportGenerator.generateReport(data);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -329,6 +338,10 @@ public class DaftarPersediaan extends javax.swing.JFrame {
         clear();
         load_data();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

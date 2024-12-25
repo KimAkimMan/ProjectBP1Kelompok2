@@ -33,6 +33,8 @@ private void login() {
                (user.equals("admin") && pass.equals("12345"))) {
         JOptionPane.showMessageDialog(null, "Login sukses sebagai " + user, 
             "Login Message", JOptionPane.INFORMATION_MESSAGE);
+        halaman_utama hu = new halaman_utama();
+        hu.setVisible(true);
     } else if (!user.equals("admin")) {
         JOptionPane.showMessageDialog(null, "User name salah", 
             "Login Error", JOptionPane.WARNING_MESSAGE);
@@ -150,9 +152,6 @@ private void login() {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         login();
-halaman_utama hu = new halaman_utama();
-hu.setVisible(true);
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

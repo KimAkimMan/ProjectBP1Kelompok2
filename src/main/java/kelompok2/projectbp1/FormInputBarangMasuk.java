@@ -75,10 +75,28 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
             st.execute(sql);
             JOptionPane.showMessageDialog(null, "Data Barang Berhasil Di Input");
             load_data(); // Refresh tabel setelah input data
+            
+            // Untuk Menampilkan Log pesan
+            String log_pesan = log.getText();
+            String pesan = String.format("-- Data %s, ID: %s, Nama: %s berhasil ditambahkan --\n", 
+               kategori,ID_Barang.getText(), Nama_Barang.getText());
+            log_pesan += pesan;
+            log.setText(log_pesan);
+            
             clear();     // Bersihkan input setelah input data
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
     }
+    }
+    public boolean checkData(){
+        boolean valid = false;
+        if (!(ID_Barang.getText().isEmpty() || Nama_Barang.getText().isEmpty() || 
+            (makanan.isSelected() == minuman.isSelected()) || 
+            Jumlah_Stok.getText().isEmpty() || 
+            Satuan.getText().isEmpty() || Harga_Satuan.getText().isEmpty())) {
+            valid = true;
+        }
+        return valid;
     }
 
 
@@ -113,7 +131,7 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
         makanan = new javax.swing.JRadioButton();
         minuman = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        log = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         Tombol_Simpan = new javax.swing.JButton();
         Tombol_Keluar = new javax.swing.JButton();
@@ -165,9 +183,9 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
 
         minuman.setText("Minuman");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        log.setColumns(20);
+        log.setRows(5);
+        jScrollPane2.setViewportView(log);
 
         jLabel10.setText("Pesan:");
 
@@ -244,7 +262,7 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
-        Tombol_Simpan.setText("SIMPAN");
+        Tombol_Simpan.setText("SIMPAN BARANG");
         Tombol_Simpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Tombol_SimpanMouseClicked(evt);
@@ -252,6 +270,11 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
         });
 
         Tombol_Keluar.setText("KELUAR");
+        Tombol_Keluar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tombol_KeluarMouseClicked(evt);
+            }
+        });
         Tombol_Keluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Tombol_KeluarActionPerformed(evt);
@@ -314,10 +337,26 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
     }//GEN-LAST:event_ID_BarangActionPerformed
 
     private void Tombol_SimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tombol_SimpanMouseClicked
-       input_data();
-       load_data();
-       clear();
+       if (this.checkData()) {
+        // Yes/No Question untuk menyimpan Data
+        int respon = JOptionPane.showConfirmDialog(null, 
+                                                   "Apakah Anda ingin menyimpan data?", 
+                                                   "Simpan Data", 
+                                                   JOptionPane.YES_NO_OPTION);
+        if (respon == JOptionPane.YES_OPTION) {
+            this.input_data();    
+        }
+        } else {
+        JOptionPane.showMessageDialog(null, "Data Harus Diisi!", "eror", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+       
     }//GEN-LAST:event_Tombol_SimpanMouseClicked
+
+    private void Tombol_KeluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tombol_KeluarMouseClicked
+
+        this.setVisible(false);
+    }//GEN-LAST:event_Tombol_KeluarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -378,7 +417,7 @@ public class FormInputBarangMasuk extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea log;
     private javax.swing.JRadioButton makanan;
     private javax.swing.JRadioButton minuman;
     // End of variables declaration//GEN-END:variables

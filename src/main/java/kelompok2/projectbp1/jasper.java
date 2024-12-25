@@ -123,7 +123,7 @@ public class jasper {
         reportGenerator.generateReport(data);
     }
 
-    private List<Map<String, ?>> fetchData() {
+    List<Map<String, ?>> fetchData() {
         List<Map<String, ?>> data = new ArrayList<>();
         String sql = "SELECT id_barang, kategori_barang, nama_barang, jumlah_stok, satuan, harga_satuan FROM persediaan";
 

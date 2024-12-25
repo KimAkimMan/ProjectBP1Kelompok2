@@ -264,14 +264,14 @@ private void reset_form() {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jButton1.setText("SIMPAN");
+        jButton1.setText("KELUARKAN BARANG");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
 
-        jButton2.setText("KELUAR");
+        jButton2.setText("EXIT");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -295,9 +295,9 @@ private void reset_form() {
                             .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
+                        .addGap(205, 205, 205)
                         .addComponent(jButton1)
-                        .addGap(214, 214, 214)
+                        .addGap(235, 235, 235)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(340, 340, 340)
@@ -333,13 +333,6 @@ private void reset_form() {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        input_data();
-        reset_form();
-        load_data();
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
         try {
         String id_barang = jTextField1.getText();
 
@@ -364,7 +357,10 @@ private void reset_form() {
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
